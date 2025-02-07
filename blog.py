@@ -36,6 +36,20 @@ def save_blog_posts_to_json(blog_posts):
 # Function to push changes to GitHub
 def push_to_github():
     commit_message = "Auto-update blog content"
+    os.chdir(repo_path)
+
+    print("📤 Running Git commands...")  # Debugging print
+    subprocess.run("git status", shell=True)  # Check if files are being tracked
+
+    try:
+        subprocess.run(["git", "add", "."], check=True)
+        subprocess.run(["git", "commit", "-m", commit_message], check=True)
+        subprocess.run(["git", "push", "origin", "main"], check=True)
+        print("✅ Successfully pushed to GitHub!")
+    except subprocess.CalledProcessError as e:
+        print(f"❌ Git error: {e}")
+
+    commit_message = "Auto-update blog content"
 
     try:
         os.chdir(repo_path)  # Navigate to the repo
@@ -57,8 +71,10 @@ class BlogFolderHandler(FileSystemEventHandler):
         push_to_github()  # Push changes to GitHub
 
     def on_modified(self, event):
+        print(f"🔄 File modified: {event.src_path}")  # Debugging print
         if event.src_path.endswith(".md"):
             self.update_blog("Updated", event.src_path)
+
 
     def on_created(self, event):
         if event.src_path.endswith(".md"):
