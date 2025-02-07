@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -110,6 +111,18 @@ __     __               __ _____          _
             }
         });
 
+        async function fetchBlogPosts(){
+            try{
+                const response =await fetch("blog_posts.json"); //fetch json file
+                const blogPosts = await response.json(); //parse json file
+                return blogPosts;//return the parsed json file
+            }
+            catch(error){
+                console.error("Error fetching blog posts",error);
+                return null;
+            }
+        }
+
         function processCommand(command) {
             let response;
 
@@ -137,6 +150,29 @@ __     __               __ _____          _
             <p>Type 'help' for commands.</p>`;
                     response = "";
                     break;
+    case 'blog':
+        output.innerHTML = "<p>Loading blog posts...</p>"; // Temporary message
+        fetchBlogPosts().then((posts) => {
+            if (!posts) {
+                output.innerHTML = "<p>Error loading blog posts.</p>";
+                return;
+            }
+            
+            // Clear output field and add blog posts
+            output.innerHTML = "";
+            for (const post in posts) {
+                output.innerHTML += `
+                    <h2 style="font-size: 1.5em; color: #A3FF00;">${post.replace('.md', '')}</h2>
+                    <p>${posts[post]}</p>
+                    <hr style="border: 1px dashed #A3FF00; margin: 10px 0;">
+                `;
+            }
+        });
+        response = "";
+        break;
+    break;
+
+
                 default:
                     response = "Unknown command. Type 'help' for a list of commands.";
             }
