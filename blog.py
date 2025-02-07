@@ -8,7 +8,7 @@ def run_command(command):
     """Run a shell command and handle errors."""
     try:
         result = subprocess.run(command, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-        return result.stdout
+        return result.stdout.strip()
     except subprocess.CalledProcessError as e:
         print(f"❌ Error: {e.stderr.strip()}")
         return None
@@ -20,19 +20,26 @@ def update_blog():
     # Change directory to the repo
     os.chdir(repo_path)
 
-    # Add changes
-    print("➕ Adding changes...")
-    run_command(["git", "add", "."])
+    # Check if there are any changes (staged, unstaged, or untracked)
+    status = run_command(["git", "status", "--porcelain"])
+    if not status:
+        print("✅ No changes detected. Exiting...")
+        return
+
+    # Add all changes (new, modified, deleted files)
+    print("➕ Adding all changes...")
+    run_command(["git", "add", "-A"])
 
     # Commit changes
     print("📝 Committing changes...")
     commit_message = "Auto-update blog content"
     commit_result = run_command(["git", "commit", "-m", commit_message])
+    
     if commit_result is None:
-        print("❌ No changes to commit. Exiting...")
+        print("❌ Nothing to commit. Exiting...")
         return
 
-    # Pull latest changes (to prevent push rejection)
+    # Ensure the latest changes are pulled first (to avoid push rejection)
     print("📥 Pulling latest changes...")
     pull_result = run_command(["git", "pull", "--rebase", "origin", "main"])
     if pull_result is None:
