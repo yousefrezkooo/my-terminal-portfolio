@@ -38,6 +38,8 @@ def start_monitoring():
     observer = Observer()
     observer.schedule(event_handler, blog_folder, recursive=False)
     observer.start()
+    subprocess.run(['git', 'commit', '-a', '-m', 'update of the blog'])
+    subprocess.run(['git', 'push'])
     
     print("Monitoring started. Press Ctrl+C to stop.")
     try:
@@ -52,5 +54,3 @@ def start_monitoring():
 if __name__ == "__main__":
     update_blog()  # Initial update
     start_monitoring()  # Start watching for changes
-    subprocess.run(['git', 'commit', '-a', '-m', 'update of the blog'])
-    subprocess.run(['git', 'push'])
