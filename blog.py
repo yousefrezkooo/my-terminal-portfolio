@@ -8,7 +8,12 @@ from watchdog.events import FileSystemEventHandler
 # Define paths
 blog_folder = r"C:\Users\yousi\OneDrive\المستندات\Obsidian Vault\blog"
 output_file = r"C:\Users\yousi\OneDrive\Desktop\MISSY\portofolio\blog_posts.json"
-
+def push_commit():
+    subprocess.run(["git", "pull"," origin main"," --rebase"], cwd=blog_folder)
+    subprocess.run(["git", "add", "."], cwd=blog_folder)
+    subprocess.run(["git", "commit", "-m", "Update blog"], cwd=blog_folder)
+    subprocess.run(["git", "push", "--set-upstream", "origin", "main"], cwd=blog_folder)
+    print("Changes pushed to Git.")
 def get_blog_posts():
     blog_posts = {}
     for filename in os.listdir(blog_folder):
@@ -31,6 +36,7 @@ class BlogFolderHandler(FileSystemEventHandler):
         if event.src_path.endswith(".md"):
             print(f"Change detected: {event.src_path}")
             update_blog()
+            push_commit()
 
 # Monitor folder
 def start_monitoring():
@@ -38,8 +44,8 @@ def start_monitoring():
     observer = Observer()
     observer.schedule(event_handler, blog_folder, recursive=False)
     observer.start()
-    subprocess.run(['git', 'commit', '-a', '-m', 'update of the blog'])
-    subprocess.run(['git', 'push'])
+    
+    
     
     print("Monitoring started. Press Ctrl+C to stop.")
     try:

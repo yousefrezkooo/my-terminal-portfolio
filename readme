@@ -1,0 +1,28 @@
+-Read all Markdown files from the Obsidian folder.
+-Convert them to JSON (title, date, content).
+-Save as blog.json inside your portfolio.
+-Portfolio reads blog.json and displays posts.
+
+
+IDEAS FROM AI:
+1. Improve Blog Display
+Use JavaScript to dynamically load and format blog posts.
+Add basic CSS styling to make posts look better.
+Create a simple search or filter (e.g., by date or title).
+2. Enhance Automation
+Auto-run script when you add new notes (using a cron job or Task Scheduler).
+Auto-publish to GitHub Pages (if hosting there).
+Add a CLI tool to easily add new posts from the terminal.
+3. Expand Your Portfolio
+Add a "Projects" page showcasing your best work.
+Create a "Skills" section to highlight your expertise.
+Add a contact form using a simple backend (Flask, Node.js, or even a third-party service).
+4. Learn More About Web Development
+Start learning React.js for dynamic front-end development.
+Learn APIs to fetch and display external data in your portfolio.
+Explore backend development (Flask, Node.js) to make a real full-stack site.
+5. More Automation & Productivity
+Automate backing up your Obsidian notes to GitHub.
+Learn Bash scripting to automate more tasks on your system.
+Build a habit tracker or to-do list using Python & JSON.
+
