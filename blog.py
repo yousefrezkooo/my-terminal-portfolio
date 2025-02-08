@@ -9,7 +9,7 @@ from watchdog.events import FileSystemEventHandler
 blog_folder = r"C:\Users\yousi\OneDrive\المستندات\Obsidian Vault\blog"
 output_file = r"C:\Users\yousi\OneDrive\Desktop\MISSY\portofolio\blog_posts.json"
 def push_commit():
-    subprocess.run(["git", "pull"," origin main"," --rebase"], cwd=blog_folder)
+    subprocess.run(["git", "pull", "origin", "main", "--rebase"], cwd=blog_folder)
     subprocess.run(["git", "add", "."], cwd=blog_folder)
     subprocess.run(["git", "commit", "-m", "Update blog"], cwd=blog_folder)
     subprocess.run(["git", "push", "--set-upstream", "origin", "main"], cwd=blog_folder)
