@@ -3,6 +3,7 @@ import json
 import time
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
+import re
 
 # Define paths
 blog_folder = r"C:\Users\yousi\OneDrive\المستندات\Obsidian Vault\blog"
@@ -29,6 +30,11 @@ class BlogFolderHandler(FileSystemEventHandler):
     def on_modified(self, event):
         if event.src_path.endswith(".md"):
             print(f"Change detected: {event.src_path}")
+            update_blog()
+
+    def on_deleted(self, event):
+        if event.src_path.endswith(".md"):
+            print(f"File deleted: {event.src_path}")
             update_blog()
 
 # Monitor folder
