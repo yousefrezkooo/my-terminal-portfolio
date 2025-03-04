@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+    <style>
+        /* Base styling */
+        body {
+            background-color: #0F0F0F;
+            color: #D9D1C2;
+            font-family: 'Roboto Mono', monospace;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .icon-link {
+            align-self: flex-start;
+            margin-bottom: 20px;
+            transition: transform 0.2s ease;
+        }
+        .icon-link:hover {
+            transform: scale(1.1);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        h1:hover {
+            
+            color: #ffffff;
+            transition: color 0.3s ease;
+        
+        }
+
+        .blog-post {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .blog-post h2 {
+            margin: 0 0 10px;
+        }
+
+        .blog-post p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Undo Icon -->
+    <a href="portfolio.html" class="icon-link">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#e6e6e6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 14L4 9l5-5"></path>
+            <path d="M4 9h8a7 7 0 1 1 0 14h-1"></path>
+        </svg>
+    </a>
+
+    <!-- Blog Title -->
+    <h1>My Blog</h1>
+
+    <!-- Blog Posts Container -->
+    <div id="blog-container"></div>
+
+    <script>
+        async function loadBlogPosts() {
+            try {
+                const response = await fetch('blog.json');
+                const posts = await response.json();
+                const blogContainer = document.getElementById('blog-container');
+                
+                posts.forEach(post => {
+                    const postElement = document.createElement('div');
+                    postElement.classList.add('blog-post');
+                    postElement.innerHTML = `
+                        <h2>${post.filename.replace('.md','')}</h2>
+                        <p>${post.content}</p>
+                    `;
+                    blogContainer.appendChild(postElement);
+                });
+            } catch (error) {
+                console.error('Error loading blog posts:', error);
+            }
+        }
+
+        loadBlogPosts();
+    </script>
+
+</body>
+</html>

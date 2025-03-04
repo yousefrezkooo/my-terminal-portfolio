@@ -1,0 +1,218 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yusuf - Developer</title>
+    <style>
+        /* Base styling */
+        body {
+            background-color: #0F0F0F;
+            color: #D9D1C2;
+            font-family: 'Roboto Mono', monospace;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            padding: 40px;
+        }
+        
+        /* Profile section */
+        .profile {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 60px;
+        }
+        
+        .header {
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .name {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 0;
+            letter-spacing: -0.5px;
+            align-self: center;
+            
+        }
+        
+        .bio {
+            max-width: 640px;
+        margin: 20px auto;
+        color: #b3b3b3;
+        font-size: 1.05rem;
+        line-height: 1.8;
+        text-align: center;
+}
+
+        
+        .highlight {
+            color: #e6e6e6;
+            font-style: italic;
+        }
+        
+        /* Icon section */
+        .icons {
+    display: flex;
+    justify-content: center; /* Center icons */
+    gap: 20px; /* Add spacing between icons */
+    margin-bottom: 20px; /* Reduce bottom margin */
+}
+
+        
+        .icon-container {
+            margin-right: 40px;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+        
+        .icon-container:hover {
+        opacity: 1;
+        transform: translateY(-4px);
+    }
+        
+        .icon {
+        width: 60px;  /* Increased from 50px */
+        height: 60px; /* Increased from 50px */
+        fill: none;
+        stroke: #e6e6e6;
+        stroke-width: 1.5;
+    }
+
+        
+        /* Subtle animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .profile {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        
+        /* Subtle hover effects */
+        .name:hover {
+            color: #ffffff;
+            transition: color 0.3s ease;
+        }
+        .blog-link {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        .blog-button {
+        display: inline-block;
+        background-color: #FF9800; /* Eye-catching orange */
+        color: #0F0F0F;
+        padding: 12px 24px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        text-decoration: none;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        margin-top: 20px;
+    }
+
+    .blog-button:hover {
+        background-color: #E68900;
+        transform: scale(1.05);
+        box-shadow: 0px 0px 10px rgba(255, 152, 0, 0.7);
+    }
+
+    @media (max-width: 900px) {
+    .profile {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Center content */
+        text-align: center; /* Ensure text is centered */
+    }
+    
+    .icons {
+        margin-bottom: 20px; /* Reduce excessive space */
+    }
+
+    .header {
+        margin-top: 0; /* Remove extra top space */
+    }
+}
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .name {
+                font-size: 2rem;
+            }
+            
+            .icon {
+                width: 40px;
+                height: 40px;
+            }
+            .bio{
+                font-size: 1rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <section class="profile">
+            <div class="icons">
+                <div class="icon-container">
+                    <a href="https://github.com/yousefrezkooo"><svg class="icon" viewBox="0 0 24 24">
+                        <!-- GitHub icon -->
+                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                    </svg></a>
+
+                </div>
+                <div class="icon-container">
+                    <a href="mailto:youremail@example.com?subject=Let's%20Connect&body=Hi%20Yusuf,">
+                        <svg class="icon" viewBox="0 0 24 24">
+                        <!-- Email icon -->
+                        <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                    </svg></a>
+                </div>
+                <div class="icon-container">
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <!-- Code icon -->
+                        <polyline points="16 18 22 12 16 6"></polyline>
+                        <polyline points="8 6 2 12 8 18"></polyline>
+                    </svg>
+                </div>
+
+            </div>
+
+            
+            <div class="header">
+                <h1 class="name">Hi, I am Yusuf Rezk</h1>
+            </div>
+            
+            <p class="bio">
+                I am a passionate developer specializing in web development, automation, and AI.  
+                I love turning ideas into real-world solutions that are both efficient and impactful.  
+                With a problem-solving mindset, I approach both coding and chess—where I’ve achieved  
+                a <span class="highlight">1622 ELO</span> rating—with strategy and discipline.  
+                Constantly pushing boundaries, I strive to bring ideas to life and share my  
+                thoughts on my <a class="blog-link" href="blog.html">blog</a>.
+            </p>
+            <a href="blog.html" class="blog-button">Visit My Blog</a>
+
+        </section>
+    </div>
+</body>
+</html>
