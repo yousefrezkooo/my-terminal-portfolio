@@ -109,6 +109,9 @@ html, body {
         }
 
         @media(max-width :600px ) and (min-width:400px){
+            .terminal{
+            border:none;
+        }
 
             .terminal-header{
                 font-size: .9rem;
@@ -124,11 +127,14 @@ html, body {
         .terminal{border: none;}
     }
     @media (max-width:400px){
+        .terminal{
+            border:none;
+        }
         .terminal-header{
-                font-size: .9rem;
+                font-size: .7rem;
             }
             .terminal-content{
-                font-size: .9rem;}
+                font-size: .7rem;}
 
         body {
                 background-color: #000;
@@ -217,8 +223,8 @@ __     __               __ _____          _
             output.innerHTML = "";
 for (const post of posts) {
     output.innerHTML += `
-        <h2 style="font-size: 1.5em; color: #A3FF00;">${post.title}</h2>
-        <pre style="white-space: pre-wrap; font-size: 1.3em; color: #A3FF00;">${post.content}</pre>
+        <h2 color: #A3FF00;">${post.title}</h2>
+        <pre style="white-space: pre-wrap; font-size: .7em; color: #A3FF00;">${post.content}</pre>
         <hr style="border: 1px dashed #A3FF00; margin: 10px 0;">
     `;
 }
