@@ -13,6 +13,7 @@
             min-height: 100vh;
             align-items: center;
             justify-content: center;
+            margin:20px;
         }
 
         .terminal {
@@ -22,6 +23,27 @@
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
+      /* width */
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #222;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #a1de36;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #A3FF00;
+}
+
 
         .terminal-header {
             color: #BDEB6B;
@@ -32,6 +54,7 @@
         .terminal-content {
             overflow-y: auto;
             max-height: 400px;
+            font-size: medium;
         }
 
         .terminal-input {
@@ -75,12 +98,27 @@
             text-decoration-style: dashed;
             text-decoration-color: #A3FF00;
         }
+
+        @media(max-width :600px){
+            .terminal-header{
+                font-size: .9rem;
+            }
+            .terminal-content{
+                font-size: .9rem;
+            }
+            body {
+                background-color: #000;
+
+
+        }
+        .terminal{border: none;}
+    }
     </style>
 </head>
 <body>
     <div class="terminal">
         <div class="terminal-header">
-            <pre style="font-size: medium;">
+            <pre >
 __     __               __ _____          _    
 \ \   / /              / _|  __ \        | |   
  \ \_/ /   _ ___ _   _| |_| |__) |___ ___| | __
@@ -183,6 +221,46 @@ __     __               __ _____          _
         document.addEventListener('click', function() {
             input.focus();
         });
+
+
+
+        let history = [];
+        let index = 0;
+        let count = 0;
+        input.addEventListener("keydown",(event) => {
+            if(event.key === "Enter"){
+            history.push(input.value);
+            let count = 0;
+
+            index=history.length;}
+            else if(event.key === "ArrowUp"){
+                count++;
+                if (history.length -count <0){
+                    input.value = "";
+
+                }
+                else{                input.value = history [history.length -count];
+                }
+
+                
+            }
+            else if (event.key === "ArrowDown") {
+    if (count > 1) {
+        count--;
+        input.value = history[history.length - count];
+    } else {
+        count = 0;
+        input.value = '';
+    }
+}
+
+
+            
+
+
+        });
+
+
     </script>
 </body>
 </html>
