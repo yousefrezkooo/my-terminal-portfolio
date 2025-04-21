@@ -216,11 +216,20 @@ html, body {
     
             switch (command.toLowerCase()) {
                 case 'help':
-                    response = `Available commands: <br>-about <br> -help<br> -skills<br> -projects<br> -contact<br> -source code <br> -blog<br>-clear`;
-                    break;
+                response = `Available commands: <br>-about <br>-help<br>-skills<br>-projects<br>-contact<br>-source code<br>-blog<br>-clear<br>-whoami<br>-inspiration<br>-sudo rm -rf /`;
+                break;
                 case 'about':
                     response = "I am Yusuf Rezk, a full-stack web developer.";
                     break;
+                case 'whoami':
+                    response = 'I Am Yusuf. Code-slinger. Iron Man in progress.  '
+                    break;
+                case 'sudo rm -rf /':
+                    response = 'Nice try 😏... not on my watch.'
+                    break;
+                case 'inspiration' :
+                    response = 'I Am IRON MAN.'
+                    break
                 case 'skills':
                     response = "HTML, CSS, JavaScript, Python, Git";
                     break;
@@ -289,6 +298,45 @@ html, body {
         document.addEventListener('click', function() {
             input.focus();
         });
+
+
+        let history = [];
+        let index = 0;
+        let count = 0;
+        input.addEventListener("keydown",(event) => {
+            if(event.key === "Enter"){
+            history.push(input.value);
+            let count = 0;
+
+            index=history.length;}
+            else if(event.key === "ArrowUp"){
+                count++;
+                if (history.length -count <0){
+                    input.value = "";
+
+                }
+                else{                input.value = history [history.length -count];
+                }
+
+                
+            }
+            else if (event.key === "ArrowDown") {
+    if (count > 1) {
+        count--;
+        input.value = history[history.length - count];
+    } else {
+        count = 0;
+        input.value = '';
+    }
+}
+
+
+            
+
+
+        });
+
+
     </script>
     
 </body>
