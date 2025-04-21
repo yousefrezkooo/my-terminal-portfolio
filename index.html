@@ -145,6 +145,16 @@ html, body {
     }
     </style>
 </head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yusuf Rezk - Portfolio</title>
+    <style>
+        /* ... your CSS styles remain unchanged ... */
+    </style>
+</head>
 <body>
     <div class="terminal">
         <div class="terminal-header">
@@ -162,14 +172,19 @@ __     __               __ _____          _
             <p>Type 'help' for commands.</p>
         </div>
         <div class="input-container">
-            <input type="text" class="terminal-input" id="input"  autofocus>
+            <input type="text" class="terminal-input" id="input" autofocus>
         </div>
     </div>
 
     <script>
         const input = document.getElementById('input');
         const output = document.querySelector('.terminal-content');
-
+    
+        let contactStep = 0;
+        let name = '';
+        let email = '';
+        let message = '';
+    
         input.addEventListener('keypress', function(event) {
             if (event.key === 'Enter') {
                 const userInput = input.value.trim();
@@ -177,22 +192,27 @@ __     __               __ _____          _
                 input.value = '';
             }
         });
-
-        async function fetchBlogPosts(){
-            try{
-                const response =await fetch("blog_posts.json"); //fetch json file
-                const blogPosts = await response.json(); //parse json file
-                return blogPosts;//return the parsed json file
-            }
-            catch(error){
-                console.error("Error fetching blog posts",error);
+    
+        async function fetchBlogPosts() {
+            try {
+                const response = await fetch("blog_posts.json");
+                const blogPosts = await response.json();
+                return blogPosts;
+            } catch (error) {
+                console.error("Error fetching blog posts", error);
                 return null;
             }
         }
-
+    
         function processCommand(command) {
-            let response;
-
+            let response = '';
+    
+            // Handle contact separately
+            if (contactStep > 0) {
+                handleContact(command);
+                return; // Exit the function after handling contact
+            }
+    
             switch (command.toLowerCase()) {
                 case 'help':
                     response = `Available commands: <br>-about <br> -help<br> -skills<br> -projects<br> -contact<br> -source code <br> -blog<br>-clear`;
@@ -203,89 +223,72 @@ __     __               __ _____          _
                 case 'skills':
                     response = "HTML, CSS, JavaScript, Python, Git";
                     break;
-
                 case 'contact':
-                    response = "You can contact me at your-email@example.com";
-                    break;
+                    handleContactStep(); // Start the contact form
+                    return; // Exit the function to avoid "Command not recognized" after entering contact
                 case 'projects':
                     response = "- project1 <br>- project2 <br>- project3 <br> - project4 <br> - project5 <br> - project6 <br> - project7 <br> - project8 <br> - project9 <br> - project10 <br> type 'project1' for more info";
-                    break;    
+                    break;
                 case 'source code':
                     response = "You can find this project's source code on <a href='https://github.com/yousefrezkooo/my-terminal-portfolio'>GitHub</a>";
                     break;
                 case 'clear':
-                    output.innerHTML = `<p>Welcome to Yusuf Rezk's portfolio!</p>
-            <p>Type 'help' for commands.</p>`;
+                    output.innerHTML = `<p>Welcome to Yusuf Rezk's portfolio!</p><p>Type 'help' for commands.</p>`;
                     response = "";
                     break;
-    case 'blog':
-        output.innerHTML = "<p>Loading blog posts...</p>"; // Temporary message
-        fetchBlogPosts().then((posts) => {
-            output.innerHTML = "";
-for (const post of posts) {
-    output.innerHTML += `
-        <h2 color: #A3FF00;">${post.title}</h2>
-        <pre style="white-space: pre-wrap; font-size: .7em; color: #A3FF00;">${post.content}</pre>
-        <hr style="border: 1px dashed #A3FF00; margin: 10px 0;">
-    `;
-}
-});
-
-        break;
-
-
+                case 'blog':
+                    output.innerHTML = "<p>Loading blog posts...</p>";
+                    fetchBlogPosts().then((posts) => {
+                        output.innerHTML = "";
+                        for (const post of posts) {
+                            output.innerHTML += `
+                                <h2>${post.title}</h2>
+                                <pre style="white-space: pre-wrap; font-size: .7em;">${post.content}</pre>
+                                <hr style="border: 1px dashed #A3FF00; margin: 10px 0;">
+                            `;
+                        }
+                    });
+                    break;
                 default:
-                    response = "Unknown command. Type 'help' for a list of commands.";
+                    response = "Command not recognized. Type 'help' for available commands.";
             }
-
+    
+            if (response) {
+                output.innerHTML += `<p>${response}</p>`;
+                output.scrollTop = output.scrollHeight;
+            }
+        }
+    
+        function handleContactStep() {
+            output.innerHTML += `<p>Enter your name:</p>`;
+            contactStep = 1;
+        }
+    
+        function handleContact(inputText) {
+            let response;
+            if (contactStep === 1) {
+                name = inputText.trim();
+                response = `Hello ${name}, please enter your email:`;
+                contactStep = 2;
+            } else if (contactStep === 2) {
+                email = inputText.trim();
+                response = `Thanks, now enter your message:`;
+                contactStep = 3;
+            } else if (contactStep === 3) {
+                message = inputText.trim();
+                response = `Thank you ${name} for your message: "${message}". I will contact you at ${email}.`;
+                contactStep = 0; // Reset after the final step
+            }
+    
             output.innerHTML += `<p>${response}</p>`;
             output.scrollTop = output.scrollHeight;
         }
-
+    
         // Refocus the input field when clicking anywhere on the page
         document.addEventListener('click', function() {
             input.focus();
         });
-
-
-
-        let history = [];
-        let index = 0;
-        let count = 0;
-        input.addEventListener("keydown",(event) => {
-            if(event.key === "Enter"){
-            history.push(input.value);
-            let count = 0;
-
-            index=history.length;}
-            else if(event.key === "ArrowUp"){
-                count++;
-                if (history.length -count <0){
-                    input.value = "";
-
-                }
-                else{                input.value = history [history.length -count];
-                }
-
-                
-            }
-            else if (event.key === "ArrowDown") {
-    if (count > 1) {
-        count--;
-        input.value = history[history.length - count];
-    } else {
-        count = 0;
-        input.value = '';
-    }
-}
-
-
-            
-
-
-        });
-
-
     </script>
+    
 </body>
 </html>
